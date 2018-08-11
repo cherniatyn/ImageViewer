@@ -1,0 +1,56 @@
+﻿<Page x:Class="ImageViewerApp.Pages.DetailItemPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="350" d:DesignWidth="525"
+      Title="DetailItemPage">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Styles/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid DataContext="{Binding}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Button Name="backToImageListButton" Grid.Row="0" Grid.Column="0" Click="_backToImageListButton_Click"
+                BorderThickness="0" Background="Transparent" ToolTip="Press Esc key to back">
+            <Image Source="pack://application:,,,/Resources/Images/back.png" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Button>
+
+        <TextBox  Name="imageNameTB" Grid.Row="0" Grid.Column="2" Background="Transparent" BorderThickness="0" IsReadOnly="True"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Right" FontSize="20"
+                   Text="{Binding Path=CurrentImage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+        <Button Name="previousImageButton" Grid.Row="0" Grid.Column="3" Command="{Binding Path=LoadPreviousImageCommand}"
+                BorderThickness="0" Background="Transparent" ToolTip="Press Left/Down key to previous image">
+            <Image Source="pack://application:,,,/Resources/Images/left.png" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Button>
+        <Button Name="nextImageButton" Grid.Row="0" Grid.Column="4" Command="{Binding Path=LoadNextImageCommand}"
+                BorderThickness="0" Background="Transparent" ToolTip="Press Right/Up key to next image">
+            <Image Source="pack://application:,,,/Resources/Images/right.png" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Button>
+        <ToggleButton x:Name="blurImageButton" Grid.Row="0" Grid.Column="5" Width="60"
+                Content="Blur" BorderThickness="0" Background="Transparent" FontSize="25" IsChecked="False" />
+
+        <Image Name="mainImage" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="1" Stretch="Uniform" Style="{StaticResource blurImageStyle}"
+               Source="{Binding Path=CurrentImage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, IsAsync=True}" />
+    </Grid>
+    
+</Page>

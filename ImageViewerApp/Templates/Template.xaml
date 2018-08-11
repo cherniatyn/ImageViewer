@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ImageViewerApp.Templates">
+
+    <DataTemplate x:Key="listViewItemTemplate">
+        <Image Width="200" Height="200">
+            <Image.Source>
+                <BitmapImage DecodePixelWidth="200" UriSource="{Binding UpdateSourceTrigger=PropertyChanged, Mode=OneWay, IsAsync=True}" />
+            </Image.Source>
+        </Image>
+    </DataTemplate>
+
+</ResourceDictionary>
