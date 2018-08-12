@@ -50,7 +50,7 @@
                 Content="Blur" BorderThickness="0" Background="Transparent" FontSize="25" IsChecked="False" />
 
         <Image Name="mainImage" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="1" Stretch="Uniform" Style="{StaticResource blurImageStyle}"
-               Source="{Binding Path=CurrentImage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, IsAsync=True}" />
+               Source="{Binding Path=SourceImage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, IsAsync=True}" />
     </Grid>
     
 </Page>

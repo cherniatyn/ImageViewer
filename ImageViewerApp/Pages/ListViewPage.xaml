@@ -19,7 +19,7 @@
     </Page.Resources>
     
     <ListView x:Name="imagesListView" SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-              HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AllowDrop="True"
+              HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AllowDrop="True" ToolTip="Drop files/folders here"
               DataContext="{Binding}"
               SelectedItem="{Binding Path=CurrentImage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
               ItemsSource="{Binding Path=Images, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
@@ -44,7 +44,7 @@
         </ListView.ItemContainerStyle>
 
         <ListBox.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Resources/Images/drop_file_here.png" TileMode="Tile" />
+            <ImageBrush ImageSource="pack://application:,,,/Resources/Images/drop_file_here.png" Stretch="None" TileMode="Tile" Viewport="0,0,350,250" ViewportUnits="Absolute"  />
         </ListBox.Background>
     </ListView>
     

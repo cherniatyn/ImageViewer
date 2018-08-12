@@ -6,7 +6,9 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace ImageViewerApp.ViewModel {
     public class ImagesViewModel : NotifyPropertyChanged {
@@ -14,9 +16,7 @@ namespace ImageViewerApp.ViewModel {
         private RelayCommand _loadNextImageCommand;
 
         public ImagesViewModel() {
-            Images = new ObservableCollection<string>() {
-                //@"E:\Frontend_Course\Html_css\Lk_7\images\background.jpg",
-            };
+            Images = new ObservableCollection<string>();
         }
 
         public ObservableCollection<string> Images { get; set; }
@@ -26,7 +26,17 @@ namespace ImageViewerApp.ViewModel {
             get { return _currentImage; }
             set {
                 _currentImage = value;
+                LoadSourceAsync();
                 OnPropertyChanged(nameof(CurrentImage));
+            }
+        }
+
+        private BitmapImage _sourceImage;
+        public BitmapImage SourceImage {
+            get { return _sourceImage; }
+            set {
+                _sourceImage = value;
+                OnPropertyChanged(nameof(SourceImage));
             }
         }
 
@@ -38,6 +48,22 @@ namespace ImageViewerApp.ViewModel {
                 CurrentImage = Images[_currentIndex];
                 OnPropertyChanged(nameof(CurrentIndex));
             }
+        }
+
+        private async void LoadSourceAsync() {
+            using (WaitCursor wc = new WaitCursor())
+                await Task.Run(() => {
+                    var bitmapImage = new BitmapImage();
+
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+
+                    bitmapImage.UriSource = new Uri(CurrentImage);
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+
+                    SourceImage = bitmapImage;
+                });
         }
 
         //public bool CheckExistingAndRemoveNonexistentImage(int index, string path) {
